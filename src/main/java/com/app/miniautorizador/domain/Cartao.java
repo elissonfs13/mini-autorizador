@@ -1,6 +1,6 @@
 package com.app.miniautorizador.domain;
 
-import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
+@Getter
 public class Cartao implements Serializable {
 
   @Id
@@ -24,9 +25,12 @@ public class Cartao implements Serializable {
 
   private BigDecimal saldo;
 
+  public Cartao() {
+  }
+
   public Cartao(String numeroCartao, String senha) {
     this.numeroCartao = numeroCartao;
     this.senha = senha;
-    this.saldo = new BigDecimal(500);
+    this.saldo = new BigDecimal(500).setScale(2);
   }
 }

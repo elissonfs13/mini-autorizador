@@ -7,7 +7,7 @@ import com.app.miniautorizador.services.CartaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.Optional;
 
 @Service
 public class CartaoServiceImpl implements CartaoService {
@@ -23,5 +23,10 @@ public class CartaoServiceImpl implements CartaoService {
   public void save(CartaoDTO newCartao) {
     Cartao cartao = new Cartao(newCartao.getNumeroCartao(), newCartao.getSenha());
     repository.save(cartao);
+  }
+
+  @Override
+  public Optional<Cartao> obterSaldo(String numeroCartao) {
+    return repository.findByNumeroCartao(numeroCartao);
   }
 }
