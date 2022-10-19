@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface CartaoService {
 
-  void save(CartaoDTO newartao);
+  void criaCartao(CartaoDTO newartao);
 
-  Optional<Cartao> obterSaldo(String numeroCartao);
+  Optional<Cartao> findByNumeroCartao(String numeroCartao);
 
   void atualizaCartao(Cartao cartao);
 }

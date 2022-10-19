@@ -20,13 +20,13 @@ public class CartaoServiceImpl implements CartaoService {
   }
 
   @Override
-  public void save(CartaoDTO newCartao) {
+  public void criaCartao(CartaoDTO newCartao) {
     Cartao cartao = new Cartao(newCartao.getNumeroCartao(), newCartao.getSenha());
     repository.save(cartao);
   }
 
   @Override
-  public Optional<Cartao> obterSaldo(String numeroCartao) {
+  public Optional<Cartao> findByNumeroCartao(String numeroCartao) {
     return repository.findByNumeroCartao(numeroCartao);
   }
 

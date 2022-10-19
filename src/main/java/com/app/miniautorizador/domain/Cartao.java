@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Entity
 @Getter
@@ -33,18 +34,22 @@ public class Cartao implements Serializable {
   public Cartao(String numeroCartao, String senha) {
     this.numeroCartao = numeroCartao;
     this.senha = senha;
-    this.saldo = new BigDecimal(500).setScale(2);
+    this.saldo = new BigDecimal(500).setScale(2, RoundingMode.HALF_UP);
   }
 
   public void validaSenha(String senhaEntrada) {
-    if (!this.getSenha().equals(senhaEntrada)) throw new SenhaIncorretaException();
+    if (senhaIncorreta(senhaEntrada)) throw new SenhaIncorretaException();
   }
 
   public void realizaTrasacao(BigDecimal valor) {
     setSaldo(this.saldo.subtract(valor));
   }
 
+  private Boolean senhaIncorreta(String senhaEntrada) {
+    return this.getSenha().equals(senhaEntrada) ? Boolean.FALSE : Boolean.TRUE;
+  }
+
   private void setSaldo(BigDecimal saldo) {
-    this.saldo = saldo;
+    this.saldo = saldo.setScale(2, RoundingMode.HALF_UP);
   }
 }

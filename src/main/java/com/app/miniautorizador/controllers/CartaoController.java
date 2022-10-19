@@ -34,7 +34,7 @@ public class CartaoController {
   public ResponseEntity<CartaoDTO> criarCartao(@RequestBody CartaoDTO novoCartao) {
 
     try {
-      cartaoService.save(novoCartao);
+      cartaoService.criaCartao(novoCartao);
       log.info("Cartão {} criado com sucesso!", novoCartao.getNumeroCartao());
       return ResponseEntity.status(HttpStatus.CREATED).body(novoCartao);
     } catch (DataIntegrityViolationException e) {
@@ -45,7 +45,7 @@ public class CartaoController {
 
   @GetMapping("/{numeroCartao}")
   public ResponseEntity<BigDecimal> obterSaldo(@PathVariable String numeroCartao) {
-    Optional<Cartao> optCartao = cartaoService.obterSaldo(numeroCartao);
+    Optional<Cartao> optCartao = cartaoService.findByNumeroCartao(numeroCartao);
     log.info("Consulta de saldo do cartão: {}", numeroCartao);
     return optCartao.isPresent()
         ? ResponseEntity.status(HttpStatus.OK).body(optCartao.get().getSaldo())

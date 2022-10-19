@@ -23,7 +23,7 @@ public class TransacaoServiceImpl implements TransacaoService {
   @Override
   @Transactional
   public void processaTransacao(TransacaoDTO transacao) {
-    Optional<Cartao> optCartao = cartaoService.obterSaldo(transacao.getNumeroCartao());
+    Optional<Cartao> optCartao = cartaoService.findByNumeroCartao(transacao.getNumeroCartao());
     Cartao cartao = optCartao.orElseThrow();
     cartao.validaSenha(transacao.getSenhaCartao());
     cartao.realizaTrasacao(transacao.getValor());
