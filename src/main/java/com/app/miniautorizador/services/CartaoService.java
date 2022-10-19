@@ -10,4 +10,6 @@ public interface CartaoService {
   void save(CartaoDTO newartao);
 
   Optional<Cartao> obterSaldo(String numeroCartao);
+
+  void atualizaCartao(Cartao cartao);
 }

@@ -29,4 +29,9 @@ public class CartaoServiceImpl implements CartaoService {
   public Optional<Cartao> obterSaldo(String numeroCartao) {
     return repository.findByNumeroCartao(numeroCartao);
   }
+
+  @Override
+  public void atualizaCartao(Cartao cartao) {
+    repository.save(cartao);
+  }
 }

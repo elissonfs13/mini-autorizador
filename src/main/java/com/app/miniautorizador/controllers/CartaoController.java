@@ -35,10 +35,10 @@ public class CartaoController {
 
     try {
       cartaoService.save(novoCartao);
-      log.info("Cartão criado com sucesso!");
+      log.info("Cartão {} criado com sucesso!", novoCartao.getNumeroCartao());
       return ResponseEntity.status(HttpStatus.CREATED).body(novoCartao);
     } catch (DataIntegrityViolationException e) {
-      log.info("Cartão já cadastrado!");
+      log.info("Cartão {} já cadastrado!", novoCartao.getNumeroCartao());
       return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(novoCartao);
     }
   }
@@ -46,7 +46,7 @@ public class CartaoController {
   @GetMapping("/{numeroCartao}")
   public ResponseEntity<BigDecimal> obterSaldo(@PathVariable String numeroCartao) {
     Optional<Cartao> optCartao = cartaoService.obterSaldo(numeroCartao);
-    log.info("Consulta de saldo do cartão: " + numeroCartao);
+    log.info("Consulta de saldo do cartão: {}", numeroCartao);
     return optCartao.isPresent()
         ? ResponseEntity.status(HttpStatus.OK).body(optCartao.get().getSaldo())
         : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
