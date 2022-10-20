@@ -54,7 +54,7 @@ public class Cartao implements Serializable {
 
   /**
    * Método responsável por realizar a comparação de uma senha passada como parâmetro com a senha do
-   * cartão. Caso os valores sejam diferentes, ou seja, a senha passada for incorreta, a excessão
+   * cartão. Caso os valores sejam diferentes, ou seja, a senha passada for incorreta, a exceção
    * 'SenhaIncorretaException' é lançada para ser tratada por quem deseja realizar essa validação.
    *
    * @param senhaEntrada senha a ser comparada com a senha do cartão.
@@ -65,7 +65,7 @@ public class Cartao implements Serializable {
 
   /**
    * Método responsável por realizar o débito de um valor passado como parâmetro do saldo do cartão.
-   * Caso o valor resultante da transação for negativo, a excessão 'ConstraintViolationException' é
+   * Caso o valor resultante da transação for negativo, a exceção 'ConstraintViolationException' é
    * lançada, fazendo com que a transação não seja executada e o valor do saldo permanece
    * inalterado. Foi adicionado o modificador 'synchronized' para garantir o devido tratamento de
    * concorrência na solução e tornar o método 'Thread-safe'.
