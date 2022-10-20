@@ -1,11 +1,12 @@
-#Teste de programação - VR Benefícios
-##Mini autorizador
+# Teste de programação - VR Benefícios
+## Mini autorizador
 O presente projeto foi desenvolvido com o objetivo de realizar o teste de programação proposto pela VR Benefícios.
 
 O arquivo com as regras de negócio e demais instruções para o desenvolvimento desse teste foi renomeado para 'README_init.md' e se encontra no mesmo diretório desse arquivo.
 
 Conforme instruções, foi utilizado o banco de dados relacional MySQL e comentado o trecho referente ao banco de dados não relacional no arquivo 'docker-compose.yml'.
-###Considerações sobre a solução
+
+### Considerações sobre a solução
 A solução foi desenvolvida utilizando as seguintes tecnologias: 
 - Java 11;
 - SpringBoot 2.7.4;
@@ -42,7 +43,10 @@ Branches:
 - feature/EFS004-testes
 - feature/EFS005-documentacao
 
-###Outros projetos
+Como parte da solução, o método responsável por realizar a transação, ou seja o débito do valor no saldo do cartão foi modificado para se tornar 'Thread-safe'. 
+Essa simples alteração faz com que erros de interferência e inconsistência sejam prevenidos, pois o método poderá ser acessado somente por uma única instância / thread por vez.
+
+### Outros projetos
 Outros projetos pessoais disponíveis no github que podem ser analisados a vontade:
 - Futebol Simulador: simula uma Copa do Mundo com resultados gerados aleatoriamente.
   - API: https://github.com/elissonfs13/futebol-simulador-api
@@ -50,7 +54,7 @@ Outros projetos pessoais disponíveis no github que podem ser analisados a vonta
 - EFS-Video: laboratório para implementação e integração entre diferentes tecnologias, tais como Spring Cloud, Spring Batch, Apache Kafka, Apache Avro, Apache Spark, Python, entre outros.
   - https://github.com/elissonfs13/efs-video
 
-###Autor:
+### Autor:
 Elisson Francisco da Silva
 
 email: elissonfs@gmail.com

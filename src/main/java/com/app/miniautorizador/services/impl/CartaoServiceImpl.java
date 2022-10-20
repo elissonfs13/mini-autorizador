@@ -15,23 +15,23 @@ public class CartaoServiceImpl implements CartaoService {
   private CartaoRepository repository;
 
   @Autowired
-  public CartaoServiceImpl(CartaoRepository repository) {
+  public CartaoServiceImpl(final CartaoRepository repository) {
     this.repository = repository;
   }
 
   @Override
-  public void criaCartao(CartaoDTO newCartao) {
-    Cartao cartao = new Cartao(newCartao.getNumeroCartao(), newCartao.getSenha());
+  public void criaCartao(final CartaoDTO novoCartao) {
+    final Cartao cartao = new Cartao(novoCartao.getNumeroCartao(), novoCartao.getSenha());
     repository.save(cartao);
   }
 
   @Override
-  public Optional<Cartao> findByNumeroCartao(String numeroCartao) {
+  public Optional<Cartao> findByNumeroCartao(final String numeroCartao) {
     return repository.findByNumeroCartao(numeroCartao);
   }
 
   @Override
-  public void atualizaCartao(Cartao cartao) {
+  public void atualizaCartao(final Cartao cartao) {
     repository.save(cartao);
   }
 }

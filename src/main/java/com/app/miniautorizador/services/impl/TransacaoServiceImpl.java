@@ -16,7 +16,7 @@ public class TransacaoServiceImpl implements TransacaoService {
   private CartaoService cartaoService;
 
   @Autowired
-  public TransacaoServiceImpl(CartaoService cartaoService) {
+  public TransacaoServiceImpl(final CartaoService cartaoService) {
     this.cartaoService = cartaoService;
   }
 
@@ -35,7 +35,7 @@ public class TransacaoServiceImpl implements TransacaoService {
    */
   @Override
   @Transactional
-  public void processaTransacao(TransacaoDTO transacao) {
+  public void processaTransacao(final TransacaoDTO transacao) {
     Optional<Cartao> optCartao = cartaoService.findByNumeroCartao(transacao.getNumeroCartao());
     Cartao cartao = optCartao.orElseThrow();
     cartao.validaSenha(transacao.getSenhaCartao());

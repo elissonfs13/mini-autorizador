@@ -46,7 +46,7 @@ public class Cartao implements Serializable {
    * @param numeroCartao número do novo cartão
    * @param senha senha do novo cartão
    */
-  public Cartao(String numeroCartao, String senha) {
+  public Cartao(final String numeroCartao, final String senha) {
     this.numeroCartao = numeroCartao;
     this.senha = senha;
     this.saldo = new BigDecimal(500).setScale(2, RoundingMode.HALF_UP);
@@ -59,7 +59,7 @@ public class Cartao implements Serializable {
    *
    * @param senhaEntrada senha a ser comparada com a senha do cartão.
    */
-  public void validaSenha(String senhaEntrada) {
+  public void validaSenha(final String senhaEntrada) {
     if (senhaIncorreta(senhaEntrada)) throw new SenhaIncorretaException();
   }
 
@@ -67,19 +67,20 @@ public class Cartao implements Serializable {
    * Método responsável por realizar o débito de um valor passado como parâmetro do saldo do cartão.
    * Caso o valor resultante da transação for negativo, a excessão 'ConstraintViolationException' é
    * lançada, fazendo com que a transação não seja executada e o valor do saldo permanece
-   * inalterado.
+   * inalterado. Foi adicionado o modificador 'synchronized' para garantir o devido tratamento de
+   * concorrência na solução e tornar o método 'Thread-safe'.
    *
    * @param valor valor a ser debitado do saldo do cartão.
    */
-  public void realizaTrasacao(BigDecimal valor) {
+  public synchronized void realizaTrasacao(final BigDecimal valor) {
     setSaldo(this.saldo.subtract(valor));
   }
 
-  private Boolean senhaIncorreta(String senhaEntrada) {
+  private Boolean senhaIncorreta(final String senhaEntrada) {
     return this.getSenha().equals(senhaEntrada) ? Boolean.FALSE : Boolean.TRUE;
   }
 
-  private void setSaldo(BigDecimal saldo) {
+  private void setSaldo(final BigDecimal saldo) {
     this.saldo = saldo.setScale(2, RoundingMode.HALF_UP);
   }
 }
