@@ -2,6 +2,9 @@ package com.app.miniautorizador.controllers;
 
 import com.app.miniautorizador.controllers.dtos.TransacaoDTO;
 import com.app.miniautorizador.services.TransacaoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +28,11 @@ public class TransacaoController {
     this.transacaoService = transacaoService;
   }
 
+  @Operation(summary = "Realiza nova transação")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "201", description = "Transação processada com sucesso"),
+      @ApiResponse(responseCode = "422", description = "Transação não validada")
+  })
   @PostMapping
   public ResponseEntity<String> processaTransacao(@RequestBody TransacaoDTO transacao) {
 

@@ -21,26 +21,56 @@ public class Cartao implements Serializable {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+  /**
+   * Utilização de constraints para garantir que não existam cartões com números repetidos na base
+   * de dados
+   */
   @Column(name = "numero_conta", nullable = false, unique = true)
   private String numeroCartao;
 
   private String senha;
 
+  /**
+   * Utilização da biblioteca javax.validation para garantir que o atributo 'saldo' não possua valor
+   * negativo
+   */
   @Min(0)
   private BigDecimal saldo;
 
   public Cartao() {}
 
+  /**
+   * Construtor de um novo cartão com número e senha passados como parâmetro. O atributo saldo do
+   * novo cartão é iniciado com o valor R$500,00 por padrão.
+   *
+   * @param numeroCartao número do novo cartão
+   * @param senha senha do novo cartão
+   */
   public Cartao(String numeroCartao, String senha) {
     this.numeroCartao = numeroCartao;
     this.senha = senha;
     this.saldo = new BigDecimal(500).setScale(2, RoundingMode.HALF_UP);
   }
 
+  /**
+   * Método responsável por realizar a comparação de uma senha passada como parâmetro com a senha do
+   * cartão. Caso os valores sejam diferentes, ou seja, a senha passada for incorreta, a excessão
+   * 'SenhaIncorretaException' é lançada para ser tratada por quem deseja realizar essa validação.
+   *
+   * @param senhaEntrada senha a ser comparada com a senha do cartão.
+   */
   public void validaSenha(String senhaEntrada) {
     if (senhaIncorreta(senhaEntrada)) throw new SenhaIncorretaException();
   }
 
+  /**
+   * Método responsável por realizar o débito de um valor passado como parâmetro do saldo do cartão.
+   * Caso o valor resultante da transação for negativo, a excessão 'ConstraintViolationException' é
+   * lançada, fazendo com que a transação não seja executada e o valor do saldo permanece
+   * inalterado.
+   *
+   * @param valor valor a ser debitado do saldo do cartão.
+   */
   public void realizaTrasacao(BigDecimal valor) {
     setSaldo(this.saldo.subtract(valor));
   }

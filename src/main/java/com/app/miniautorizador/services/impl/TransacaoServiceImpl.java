@@ -20,6 +20,19 @@ public class TransacaoServiceImpl implements TransacaoService {
     this.cartaoService = cartaoService;
   }
 
+  /**
+   * Método responsável por processar uma nova transação e realizar as validações necessárias antes
+   * da realização da transação e consequente atualização na base de dados. As validações são
+   * realizadas por meio do lançamento e captura de exceções provenientes do processamento de cada
+   * passo da transação.
+   *
+   * Validações:
+   * - Cartão existir na base de dados;
+   * - Senha do cartão informada corretamente;
+   * - Saldo disponível e suficiente para a transação.
+   *
+   * @param transacao informações de entrada para a transação
+   */
   @Override
   @Transactional
   public void processaTransacao(TransacaoDTO transacao) {
